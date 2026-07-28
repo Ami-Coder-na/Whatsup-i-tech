@@ -8,25 +8,38 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/package/{id}', [HomeController::class, 'packageDetail'])->name('package.detail');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::get('/terms-and-conditions', [HomeController::class, 'termsConditions'])->name('terms.conditions');
+Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+Route::get('/support', [HomeController::class, 'support'])->name('support');
 Route::post('/contact-submit', [HomeController::class, 'submitContact'])->name('contact.submit');
 
 // Admin Panel Routes
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'processLogin'])->name('admin.login.submit');
+
 Route::prefix('admin')->group(function () {
+    Route::get('/', function() {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+        return redirect()->route('admin.dashboard');
+    });
+
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
     // Services
     Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
-    Route::post('/services', [AdminController::class, 'storeService'])->name('admin.services.store');
-    Route::delete('/services/{id}', [AdminController::class, 'deleteService'])->name('admin.services.delete');
+    Route::post('/services/store', [AdminController::class, 'storeService'])->name('admin.services.store');
+    Route::post('/services/update/{id}', [AdminController::class, 'updateService'])->name('admin.services.update');
+    Route::get('/services/delete/{id}', [AdminController::class, 'deleteService'])->name('admin.services.delete');
 
     // Packages
     Route::get('/packages', [AdminController::class, 'packages'])->name('admin.packages');
-    Route::post('/packages/{id}', [AdminController::class, 'updatePackage'])->name('admin.packages.update');
+    Route::post('/packages/update/{id}', [AdminController::class, 'updatePackage'])->name('admin.packages.update');
 
     // Demos
     Route::get('/demos', [AdminController::class, 'demos'])->name('admin.demos');
-    Route::post('/demos', [AdminController::class, 'storeDemoLink'])->name('admin.demos.store');
-    Route::delete('/demos/{id}', [AdminController::class, 'deleteDemoLink'])->name('admin.demos.delete');
+    Route::post('/demos/store', [AdminController::class, 'storeDemo'])->name('admin.demos.store');
+    Route::get('/demos/delete/{id}', [AdminController::class, 'deleteDemo'])->name('admin.demos.delete');
 
     // Messages
     Route::get('/messages', [AdminController::class, 'messages'])->name('admin.messages');
@@ -37,6 +50,7 @@ Route::prefix('admin')->group(function () {
 
     // Logout
     Route::post('/logout', function() {
-        return redirect()->route('home')->with('success', 'অ্যাডমিন থেকে লগআউট করা হয়েছে!');
+        session()->forget('admin_logged_in');
+        return redirect()->route('admin.login')->with('success', 'অ্যাডমিন থেকে লগআউট করা হয়েছে!');
     })->name('admin.logout');
 });

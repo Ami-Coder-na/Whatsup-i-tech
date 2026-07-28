@@ -63,6 +63,18 @@ class HomeController extends Controller
         return view('terms-conditions', compact('termsText'));
     }
 
+    public function faq()
+    {
+        $faqText = \App\Models\SiteSetting::where('key', 'faq_content')->value('value') ?? "প্রশ্ন: আপনাদের ই-কমার্স ওয়েবসাইটে কী কী ফিচার থাকে?\nউত্তর: আমাদের ওয়েবসাইটে সম্পূর্ণ রেসপন্সিভ ডিজাইন, অ্যাডমিন প্যানেল, স্টক ম্যানেজমেন্ট, ওটিপি ভেরিফিকেশন ও কুরিয়ার ইন্টিগ্রেশন থাকে।\n\nপ্রশ্ন: ওয়েবসাইটের কাজ শেষ হতে কতদিন সময় লাগে?\nউত্তর: অর্ডারের পর সাধারণ ওয়েবসাইট ৩-৫ দিন এবং কাস্টম পোর্টাল ৭-১০ দিনের মধ্যে সম্পূর্ণ রেডি করে দেওয়া হয়।";
+        return view('faq', compact('faqText'));
+    }
+
+    public function support()
+    {
+        $supportText = \App\Models\SiteSetting::where('key', 'support_content')->value('value') ?? "আমাদের ২৪/৭ কাস্টমার সাপোর্ট টিমের সাথে সরাসরি যোগাযোগ করুন:\n\nফোন: 01657-043577\nইমেইল: support@whatsupitech.com\nঅফিস: হাউজ - ২৬/বি, রোড - ০২, সেক্টর - ৩, উত্তরা, ঢাকা-১২৩০";
+        return view('support', compact('supportText'));
+    }
+
     public function submitContact(Request $request)
     {
         $validator = Validator::make($request->all(), [

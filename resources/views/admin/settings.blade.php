@@ -62,13 +62,23 @@
             </h3>
 
             <div class="form-group">
+                <label class="form-label">FAQ (সাধারণ জিজ্ঞাসাসমূহ)</label>
+                <textarea name="faq_content" class="form-input" rows="8" placeholder="FAQ প্রশ্ন ও উত্তরসমূহ লিখুন...">{{ $settings['faq_content'] ?? "প্রশ্ন: আপনাদের ই-কমার্স ওয়েবসাইটে কী কী ফিচার থাকে?\nউত্তর: আমাদের ওয়েবসাইটে সম্পূর্ণ রেসপন্সিভ ডিজাইন, অ্যাডমিন প্যানেল, স্টক ম্যানেজমেন্ট, ওটিপি ভেরিফিকেশন ও কুরিয়ার ইন্টিগ্রেশন থাকে।" }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Support Page Content (সাপোর্ট পেজের তথ্য)</label>
+                <textarea name="support_content" class="form-input" rows="8" placeholder="কাস্টমার সাপোর্ট টিমের তথ্য লিখুন...">{{ $settings['support_content'] ?? "আমাদের ২৪/৭ কাস্টমার সাপোর্ট টিমের সাথে সরাসরি যোগাযোগ করুন:\n\nফোন: 01657-043577\nইমেইল: support@whatsupitech.com\nঅফিস: হাউজ - ২৬/বি, রোড - ০২, সেক্টর - ৩, উত্তরা, ঢাকা-১২৩০" }}</textarea>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label">Privacy Policy (গোপনীয়তা নীতি)</label>
-                <textarea name="privacy_policy" class="form-input" rows="10" placeholder="প্রাইভেসি পলিসির লেখা লিখুন...">{{ $settings['privacy_policy'] ?? 'WhatsUp i-Tech কাস্টমারের তথ্যের গোপনীয়তা রক্ষা করতে প্রতিশ্রুতিবদ্ধ।' }}</textarea>
+                <textarea name="privacy_policy" class="form-input" rows="8" placeholder="প্রাইভেসি পলিসির লেখা লিখুন...">{{ $settings['privacy_policy'] ?? 'WhatsUp i-Tech কাস্টমারের তথ্যের গোপনীয়তা রক্ষা করতে প্রতিশ্রুতিবদ্ধ।' }}</textarea>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Terms & Conditions (শর্তাবলী)</label>
-                <textarea name="terms_conditions" class="form-input" rows="10" placeholder="শর্তাবলী লিখুন...">{{ $settings['terms_conditions'] ?? 'আমাদের সেবা গ্রহণের পূর্বে সকল নিয়ম ও শর্তাবলী ভালোভাবে পড়ে নিন।' }}</textarea>
+                <textarea name="terms_conditions" class="form-input" rows="8" placeholder="শর্তাবলী লিখুন...">{{ $settings['terms_conditions'] ?? 'আমাদের সেবা গ্রহণের পূর্বে সকল নিয়ম ও শর্তাবলী ভালোভাবে পড়ে নিন।' }}</textarea>
             </div>
 
             <button type="submit" class="btn-submit" style="width: 100%; padding: 14px; font-size: 16px;">

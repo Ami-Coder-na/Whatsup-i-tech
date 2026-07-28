@@ -14,6 +14,37 @@ use App\Models\ContactMessage;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        // Enforce session login check for all admin actions except login page and login process
+        if (request()->routeIs('admin.*') && !request()->routeIs('admin.login') && !request()->routeIs('admin.login.submit')) {
+            if (!session('admin_logged_in')) {
+                redirect()->route('admin.login')->with('error', 'অ্যাডমিন ড্যাশবোর্ডে প্রবেশ করতে লগইন করুন।')->send();
+                exit;
+            }
+        }
+    }
+    public function showLoginForm()
+    {
+        if (session('admin_logged_in')) {
+            return redirect()->route('admin.dashboard');
+        }
+        return view('admin.login');
+    }
+
+    public function processLogin(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        if ($username === 'admin' && $password === 'admin') {
+            session(['admin_logged_in' => true]);
+            return redirect()->route('admin.dashboard')->with('success', 'স্বাগতম! সফলভাবে লগইন করা হয়েছে।');
+        }
+
+        return back()->with('error', 'ইউজারনেম অথবা পাসওয়ার্ড ভুল হয়েছে!');
+    }
+
     public function dashboard()
     {
         $stats = [
@@ -149,7 +180,7 @@ class AdminController extends Controller
         }
 
         // Text settings update
-        $textKeys = ['phone', 'email', 'address', 'facebook', 'youtube', 'linkedin', 'privacy_policy', 'terms_conditions'];
+        $textKeys = ['phone', 'email', 'address', 'facebook', 'youtube', 'linkedin', 'privacy_policy', 'terms_conditions', 'faq_content', 'support_content'];
         foreach ($textKeys as $key) {
             if ($request->has($key)) {
                 \App\Models\SiteSetting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);

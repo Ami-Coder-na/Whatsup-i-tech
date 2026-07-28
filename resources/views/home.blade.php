@@ -9,9 +9,10 @@
             <span>বাংলাদেশ সেরা ডিজিটাল সার্ভিসেস প্ল্যাটফর্ম</span>
         </div>
         <div class="top-bar-right">
-            <a href="#"><i class="fa-solid fa-headset"></i> সাপোর্ট</a>
-            <a href="#"><i class="fa-solid fa-briefcase"></i> ক্যারিয়ার</a>
-            <a href="#"><i class="fa-solid fa-blog"></i> ব্লগ</a>
+            <a href="{{ route('support') }}"><i class="fa-solid fa-headset"></i> সাপোর্ট</a>
+            <a href="{{ route('faq') }}"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+            <a href="{{ route('privacy.policy') }}"><i class="fa-solid fa-user-shield"></i> গোপনীয়তা নীতি</a>
+            <a href="{{ route('terms.conditions') }}"><i class="fa-solid fa-file-contract"></i> শর্তাবলী</a>
             <a href="#"><i class="fa-brands fa-facebook"></i></a>
             <a href="#"><i class="fa-brands fa-youtube"></i></a>
             <a href="#"><i class="fa-brands fa-linkedin"></i></a>
@@ -557,6 +558,8 @@
         <div class="footer-bottom">
             <div>© {{ date('Y') }} WhatsUp i-Tech. সকল অধিকার সংরক্ষিত।</div>
             <div style="display: flex; gap: 20px;">
+                <a href="{{ route('faq') }}" style="color: rgba(255,255,255,0.7); text-decoration: none;">FAQ</a>
+                <a href="{{ route('support') }}" style="color: rgba(255,255,255,0.7); text-decoration: none;">সাপোর্ট</a>
                 <a href="{{ route('privacy.policy') }}" style="color: rgba(255,255,255,0.7); text-decoration: none;">প্রাইভেসি পলিসি</a>
                 <a href="{{ route('terms.conditions') }}" style="color: rgba(255,255,255,0.7); text-decoration: none;">শর্তাবলী</a>
             </div>
