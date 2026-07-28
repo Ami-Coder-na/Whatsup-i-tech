@@ -17,7 +17,8 @@ foreach ($storageDirs as $dir) {
 
 putenv('APP_KEY=base64:XG83JbQ2c/xL05a3N7B3qW4vV9zQ4mX1Y7zQ4mX1Y7z=');
 putenv('APP_ENV=production');
-putenv('APP_DEBUG=false');
+putenv('APP_DEBUG=true');
+putenv('LOG_CHANNEL=stderr');
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
