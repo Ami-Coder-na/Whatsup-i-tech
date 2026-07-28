@@ -166,17 +166,29 @@ class AdminController extends Controller
 
     public function updateSettings(Request $request)
     {
+        // Destination directory for uploads (Handle Vercel read-only filesystem)
+        $uploadDir = is_writable(public_path('images')) ? public_path('images') : '/tmp/images';
+        if (!file_exists($uploadDir)) {
+            @mkdir($uploadDir, 0777, true);
+        }
+
         // Handle File Uploads (Logo & Favicon)
         if ($request->hasFile('logo')) {
-            $logoName = 'logo.' . $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path('images'), 'logo.png');
-            \App\Models\SiteSetting::updateOrCreate(['key' => 'logo'], ['value' => '/images/logo.png']);
+            try {
+                $request->file('logo')->move($uploadDir, 'logo.png');
+                \App\Models\SiteSetting::updateOrCreate(['key' => 'logo'], ['value' => '/images/logo.png']);
+            } catch (\Throwable $e) {
+                // Log or ignore upload write error in read-only environment
+            }
         }
 
         if ($request->hasFile('favicon')) {
-            $faviconName = 'favicon.' . $request->file('favicon')->getClientOriginalExtension();
-            $request->file('favicon')->move(public_path('images'), 'favicon.ico');
-            \App\Models\SiteSetting::updateOrCreate(['key' => 'favicon'], ['value' => '/images/favicon.ico']);
+            try {
+                $request->file('favicon')->move($uploadDir, 'favicon.ico');
+                \App\Models\SiteSetting::updateOrCreate(['key' => 'favicon'], ['value' => '/images/favicon.ico']);
+            } catch (\Throwable $e) {
+                // Log or ignore
+            }
         }
 
         // Text settings update

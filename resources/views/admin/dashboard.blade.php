@@ -37,8 +37,8 @@
     </div>
 </div>
 
-<div class="card">
-    <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 15px;">সাম্প্রতিক ইনকয়ারি 메시জ (Leads)</h3>
+    <div class="card" style="margin-top: 30px;">
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 20px; color: #1e293b;">সাম্প্রতিক ইনকয়ারি মেসেজ (Leads)</h3>
     <table>
         <thead>
             <tr>
