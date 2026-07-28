@@ -30,14 +30,27 @@ putenv('APP_EVENTS_CACHE=/tmp/bootstrap/cache/events.php');
 $dbPath = '/tmp/database.sqlite';
 if (!file_exists($dbPath)) {
     @touch($dbPath);
-    if (file_exists(__DIR__ . '/../database/database.sqlite')) {
-        @copy(__DIR__ . '/../database/database.sqlite', $dbPath);
-    }
 }
 
 if (!getenv('DB_CONNECTION')) {
     putenv('DB_CONNECTION=sqlite');
     putenv('DB_DATABASE=' . $dbPath);
+}
+
+// Auto migrate and seed SQLite database on Vercel if tables missing
+try {
+    $pdo = new PDO('sqlite:' . $dbPath);
+    $check = $pdo->query("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='services'");
+    if ($check && $check->fetchColumn() == 0) {
+        // Run Artisan migrate & seed programmatically
+        $app = require __DIR__ . '/../bootstrap/app.php';
+        $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+        
+        $kernel->call('migrate', ['--force' => true]);
+        $kernel->call('db:seed', ['--class' => 'CompanySeeder', '--force' => true]);
+    }
+} catch (\Throwable $e) {
+    // Log or ignore PDO check error
 }
 
 // Require Laravel entrypoint

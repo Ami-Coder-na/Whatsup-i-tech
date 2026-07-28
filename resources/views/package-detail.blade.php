@@ -5,12 +5,8 @@
 <!-- Header Navbar -->
 <header class="header">
     <div class="container navbar">
-        <a href="{{ route('home') }}#hero" class="brand-logo">
-            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
-            <div class="brand-text">
-                WhatsUp
-                <span>Digital Solution</span>
-            </div>
+        <a href="{{ route('home') }}#hero" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1);">
         </a>
 
         <ul class="nav-links">
