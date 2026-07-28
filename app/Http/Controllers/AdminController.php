@@ -119,10 +119,43 @@ class AdminController extends Controller
         return back()->with('success', 'ডেমো লিঙ্ক মুছে ফেলা হয়েছে!');
     }
 
-    // Messages Inbox
+    // Messages
     public function messages()
     {
         $messages = ContactMessage::latest()->get();
         return view('admin.messages', compact('messages'));
+    }
+
+    // Site Settings (Logo, Favicon, Contact Info, Privacy Policy, Terms)
+    public function settings()
+    {
+        $settings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+        return view('admin.settings', compact('settings'));
+    }
+
+    public function updateSettings(Request $request)
+    {
+        // Handle File Uploads (Logo & Favicon)
+        if ($request->hasFile('logo')) {
+            $logoName = 'logo.' . $request->file('logo')->getClientOriginalExtension();
+            $request->file('logo')->move(public_path('images'), 'logo.png');
+            \App\Models\SiteSetting::updateOrCreate(['key' => 'logo'], ['value' => '/images/logo.png']);
+        }
+
+        if ($request->hasFile('favicon')) {
+            $faviconName = 'favicon.' . $request->file('favicon')->getClientOriginalExtension();
+            $request->file('favicon')->move(public_path('images'), 'favicon.ico');
+            \App\Models\SiteSetting::updateOrCreate(['key' => 'favicon'], ['value' => '/images/favicon.ico']);
+        }
+
+        // Text settings update
+        $textKeys = ['phone', 'email', 'address', 'facebook', 'youtube', 'linkedin', 'privacy_policy', 'terms_conditions'];
+        foreach ($textKeys as $key) {
+            if ($request->has($key)) {
+                \App\Models\SiteSetting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);
+            }
+        }
+
+        return back()->with('success', 'ওয়েবসাইট সেটিং ও পলিসি তথ্য সফলভাবে আপডেট করা হয়েছে!');
     }
 }

@@ -51,6 +51,18 @@ class HomeController extends Controller
         return view('package-detail', compact('package', 'allPackages'));
     }
 
+    public function privacyPolicy()
+    {
+        $policyText = \App\Models\SiteSetting::where('key', 'privacy_policy')->value('value') ?? 'WhatsUp i-Tech কাস্টমারের তথ্যের গোপনীয়তা রক্ষা করতে প্রতিশ্রুতিবদ্ধ।';
+        return view('privacy-policy', compact('policyText'));
+    }
+
+    public function termsConditions()
+    {
+        $termsText = \App\Models\SiteSetting::where('key', 'terms_conditions')->value('value') ?? 'আমাদের সেবা গ্রহণের পূর্বে সকল নিয়ম ও শর্তাবলী ভালোভাবে পড়ে নিন।';
+        return view('terms-conditions', compact('termsText'));
+    }
+
     public function submitContact(Request $request)
     {
         $validator = Validator::make($request->all(), [

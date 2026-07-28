@@ -556,7 +556,10 @@
         </div>
         <div class="footer-bottom">
             <div>© {{ date('Y') }} WhatsUp i-Tech. সকল অধিকার সংরক্ষিত।</div>
-            <div>ডিজাইন ও ডেভেলপমেন্ট: WhatsUp i-Tech</div>
+            <div style="display: flex; gap: 20px;">
+                <a href="{{ route('privacy.policy') }}" style="color: rgba(255,255,255,0.7); text-decoration: none;">প্রাইভেসি পলিসি</a>
+                <a href="{{ route('terms.conditions') }}" style="color: rgba(255,255,255,0.7); text-decoration: none;">শর্তাবলী</a>
+            </div>
         </div>
     </div>
 </footer>

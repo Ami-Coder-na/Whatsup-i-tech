@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/package/{id}', [HomeController::class, 'packageDetail'])->name('package.detail');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy.policy');
+Route::get('/terms-and-conditions', [HomeController::class, 'termsConditions'])->name('terms.conditions');
 Route::post('/contact-submit', [HomeController::class, 'submitContact'])->name('contact.submit');
 
 // Admin Panel Routes
@@ -28,6 +30,10 @@ Route::prefix('admin')->group(function () {
 
     // Messages
     Route::get('/messages', [AdminController::class, 'messages'])->name('admin.messages');
+
+    // Site Settings
+    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::post('/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
 
     // Logout
     Route::post('/logout', function() {
