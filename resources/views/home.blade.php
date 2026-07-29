@@ -2,55 +2,58 @@
 
 @section('content')
 
-<!-- Top Announcement Bar -->
-<div class="top-bar">
-    <div class="container top-bar-content">
-        <div class="top-bar-left">
-            <span>বাংলাদেশ সেরা ডিজিটাল সার্ভিসেস প্ল্যাটফর্ম</span>
-        </div>
-        <div class="top-bar-right">
-            <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366; font-weight: 600;"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp</a>
-            <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF; font-weight: 600;"><i class="fa-brands fa-facebook-messenger fa-lg"></i> Messenger</a>
-            <a href="{{ route('support') }}"><i class="fa-solid fa-headset"></i> সাপোর্ট</a>
-            <a href="{{ route('faq') }}"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-            <a href="{{ route('privacy.policy') }}"><i class="fa-solid fa-user-shield"></i> গোপনীয়তা নীতি</a>
-            <a href="{{ route('terms.conditions') }}"><i class="fa-solid fa-file-contract"></i> শর্তাবলী</a>
-            <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF;"><i class="fa-brands fa-facebook-messenger"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+<!-- Sticky Fixed Header Container -->
+<div class="sticky-header-wrapper">
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-bar-left">
+                <span>বাংলাদেশ সেরা ডিজিটাল সার্ভিসেস প্ল্যাটফর্ম</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366; font-weight: 600;"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp</a>
+                <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF; font-weight: 600;"><i class="fa-brands fa-facebook-messenger fa-lg"></i> Messenger</a>
+                <a href="{{ route('support') }}"><i class="fa-solid fa-headset"></i> সাপোর্ট</a>
+                <a href="{{ route('faq') }}"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                <a href="{{ route('privacy.policy') }}"><i class="fa-solid fa-user-shield"></i> গোপনীয়তা নীতি</a>
+                <a href="{{ route('terms.conditions') }}"><i class="fa-solid fa-file-contract"></i> শর্তাবলী</a>
+                <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF;"><i class="fa-brands fa-facebook-messenger"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
         </div>
     </div>
+
+    <!-- Header Navbar -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="#hero" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
+                <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain;">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#" class="active">হোম</a></li>
+                <li><a href="#about">আমাদের সম্পর্কে</a></li>
+                <li><a href="#services">সার্ভিস সমূহ</a></li>
+                <li><a href="#packages">প্যাকেজ ও মূল্য</a></li>
+                <li><a href="#projects">ডেমো</a></li>
+                <li><a href="#blogs">ব্লগ</a></li>
+                <li><a href="#contact">যোগাযোগ</a></li>
+            </ul>
+
+            <div class="nav-right-actions">
+                <a href="tel:01657043577" class="phone-link">
+                    <i class="fa-solid fa-phone"></i> 01657-043577
+                </a>
+                <a href="#projects" class="btn-primary">
+                    ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </header>
 </div>
-
-<!-- Header Navbar -->
-<header class="header">
-    <div class="container navbar">
-        <a href="#hero" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
-            <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain;">
-        </a>
-
-        <ul class="nav-links">
-            <li><a href="#" class="active">হোম</a></li>
-            <li><a href="#about">আমাদের সম্পর্কে</a></li>
-            <li><a href="#services">সার্ভিস সমূহ</a></li>
-            <li><a href="#packages">প্যাকেজ ও মূল্য</a></li>
-            <li><a href="#projects">ডেমো</a></li>
-            <li><a href="#blogs">ব্লগ</a></li>
-            <li><a href="#contact">যোগাযোগ</a></li>
-        </ul>
-
-        <div class="nav-right-actions">
-            <a href="tel:01657043577" class="phone-link">
-                <i class="fa-solid fa-phone"></i> 01657-043577
-            </a>
-            <a href="#projects" class="btn-primary">
-                ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-</header>
 
 <!-- Hero Section -->
 <section id="hero" class="hero-section">

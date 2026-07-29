@@ -58,6 +58,15 @@
             padding: 0 30px;
         }
 
+        /* Sticky Header Wrapper (Top Bar + Navbar) */
+        .sticky-header-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            background-color: var(--primary-navy);
+        }
+
         /* Top Announcement Bar */
         .top-bar {
             background-color: var(--primary-navy);
@@ -95,10 +104,6 @@
         /* Main Navbar */
         .header {
             background-color: var(--primary-navy);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .navbar {
