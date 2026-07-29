@@ -198,15 +198,26 @@ class AdminController extends Controller
 
         if ($request->hasFile('hero_banner')) {
             try {
+                $oldSingle = \App\Models\SiteSetting::where('key', 'hero_banner')->value('value');
+
                 $file = $request->file('hero_banner');
                 $filename = 'hero_banner_' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move($uploadDir, $filename);
                 
+                $newPath = 'images/' . $filename;
                 $existing = json_decode(\App\Models\SiteSetting::where('key', 'hero_banners')->value('value') ?? '[]', true) ?: [];
-                $existing[] = 'images/' . $filename;
+                $existing[] = $newPath;
                 
-                \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banner'], ['value' => 'images/' . $filename]);
+                \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banner'], ['value' => $newPath]);
                 \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banners'], ['value' => json_encode(array_values($existing))]);
+
+                // Auto-delete old single hero banner file from disk if replaced
+                if (!empty($oldSingle) && $oldSingle !== $newPath && !str_contains($oldSingle, 'hero-mockup')) {
+                    $oldPath = public_path(ltrim($oldSingle, '/'));
+                    if (file_exists($oldPath)) {
+                        @unlink($oldPath);
+                    }
+                }
             } catch (\Throwable $e) {
                 // Log or ignore
             }
