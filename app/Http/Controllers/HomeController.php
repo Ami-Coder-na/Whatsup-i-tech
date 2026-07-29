@@ -79,7 +79,7 @@ class HomeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|string|max:255',
             'phone' => 'required|string|max:30',
             'message' => 'nullable|string'
         ]);
@@ -87,20 +87,28 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
+                'message' => 'অনুগ্রহ করে সঠিক তথ্য (নাম, ইমেইল ও ফোন নম্বর) প্রদান করুন।',
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        ContactMessage::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'message' => $request->message ?? 'No detail provided'
-        ]);
+        try {
+            ContactMessage::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'message' => $request->message ?? 'No detail provided'
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'ধন্যবাদ! আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে। আমরা শীঘ্রই যোগাযোগ করব।'
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'ধন্যবাদ! আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে। আমরা শীঘ্রই যোগাযোগ করব।'
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'মেসেজ সেভ করতে সমস্যা হয়েছে, আবার চেষ্টা করুন।'
+            ], 500);
+        }
     }
 }

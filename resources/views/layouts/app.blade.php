@@ -1328,33 +1328,40 @@
                     fetch('{{ route("contact.submit") }}', {
                         method: 'POST',
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json'
                         },
                         body: formData
                     })
-                    .then(res => res.json())
-                    .then(data => {
+                    .then(async res => {
+                        const data = await res.json().catch(() => ({}));
+                        return { ok: res.ok, status: res.status, data: data };
+                    })
+                    .then(res => {
                         submitBtn.disabled = false;
                         submitBtn.innerText = 'মেসেজ পাঠান';
-                        if (data.success) {
+                        if (res.ok && res.data.success) {
                             alertBox.style.display = 'block';
                             alertBox.style.background = '#10b981';
                             alertBox.style.color = '#ffffff';
-                            alertBox.innerText = data.message;
+                            alertBox.style.fontWeight = '700';
+                            alertBox.innerText = res.data.message || 'ধন্যবাদ! আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে।';
                             form.reset();
                         } else {
                             alertBox.style.display = 'block';
                             alertBox.style.background = '#ef4444';
                             alertBox.style.color = '#ffffff';
-                            alertBox.innerText = 'অনুগ্রহ করে সঠিক তথ্য দিন।';
+                            alertBox.style.fontWeight = '700';
+                            alertBox.innerText = (res.data && res.data.message) ? res.data.message : 'অনুগ্রহ করে সঠিক তথ্য (নাম, ইমেইল ও ফোন) প্রদান করুন।';
                         }
                     })
-                    .catch(() => {
+                    .catch(err => {
                         submitBtn.disabled = false;
                         submitBtn.innerText = 'মেসেজ পাঠান';
                         alertBox.style.display = 'block';
                         alertBox.style.background = '#ef4444';
                         alertBox.style.color = '#ffffff';
+                        alertBox.style.fontWeight = '700';
                         alertBox.innerText = 'ত্রুটি ঘটেছে, আবার চেষ্টা করুন।';
                     });
                 });
