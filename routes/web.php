@@ -30,7 +30,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/services', [AdminController::class, 'services'])->name('admin.services');
     Route::post('/services/store', [AdminController::class, 'storeService'])->name('admin.services.store');
     Route::post('/services/update/{id}', [AdminController::class, 'updateService'])->name('admin.services.update');
-    Route::get('/services/delete/{id}', [AdminController::class, 'deleteService'])->name('admin.services.delete');
+    Route::match(['get', 'delete'], '/services/delete/{id}', [AdminController::class, 'deleteService'])->name('admin.services.delete');
 
     // Packages
     Route::get('/packages', [AdminController::class, 'packages'])->name('admin.packages');
@@ -38,8 +38,8 @@ Route::prefix('admin')->group(function () {
 
     // Demos
     Route::get('/demos', [AdminController::class, 'demos'])->name('admin.demos');
-    Route::post('/demos/store', [AdminController::class, 'storeDemo'])->name('admin.demos.store');
-    Route::get('/demos/delete/{id}', [AdminController::class, 'deleteDemo'])->name('admin.demos.delete');
+    Route::post('/demos/store', [AdminController::class, 'storeDemoLink'])->name('admin.demos.store');
+    Route::match(['get', 'delete'], '/demos/delete/{id}', [AdminController::class, 'deleteDemoLink'])->name('admin.demos.delete');
 
     // Messages
     Route::get('/messages', [AdminController::class, 'messages'])->name('admin.messages');
