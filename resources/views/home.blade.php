@@ -38,13 +38,13 @@
                     <span style="font-weight: 800; font-size: 17px; color: white;">মেনু নেভিগেশন</span>
                     <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close Menu"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <li><a href="#" class="active"><i class="fa-solid fa-house"></i> হোম</a></li>
-                <li><a href="#about"><i class="fa-solid fa-users"></i> আমাদের সম্পর্কে</a></li>
-                <li><a href="#services"><i class="fa-solid fa-laptop-code"></i> সার্ভিস সমূহ</a></li>
-                <li><a href="#packages"><i class="fa-solid fa-tags"></i> প্যাকেজ ও মূল্য</a></li>
-                <li><a href="#projects"><i class="fa-solid fa-laptop"></i> ডেমো</a></li>
-                <li><a href="#blogs"><i class="fa-solid fa-newspaper"></i> ব্লগ</a></li>
-                <li><a href="#contact"><i class="fa-solid fa-envelope"></i> যোগাযোগ</a></li>
+                <li><a href="#" class="active">হোম</a></li>
+                <li><a href="#about">আমাদের সম্পর্কে</a></li>
+                <li><a href="#services">সার্ভিস সমূহ</a></li>
+                <li><a href="#packages">প্যাকেজ ও মূল্য</a></li>
+                <li><a href="#projects">ডেমো</a></li>
+                <li><a href="#blogs">ব্লগ</a></li>
+                <li><a href="#contact">যোগাযোগ</a></li>
             </ul>
 
             <div class="nav-right-actions">
