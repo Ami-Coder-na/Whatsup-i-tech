@@ -1016,6 +1016,10 @@
                 display: none !important;
             }
 
+            .floating-container {
+                display: none !important;
+            }
+
             .mobile-toggle {
                 display: flex;
             }
