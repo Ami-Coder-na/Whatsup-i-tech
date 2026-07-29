@@ -1261,38 +1261,35 @@
     <!-- Success Modal / Toast Notification & Mobile Drawer Script -->
     <script>
         // Mobile Navigation Menu Drawer Logic
-        const mobileToggleBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
-        const navOverlay = document.getElementById('navOverlay');
-        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-
         function openMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const navOverlay = document.getElementById('navOverlay');
             if (navLinks) navLinks.classList.add('active');
             if (navOverlay) navOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const navOverlay = document.getElementById('navOverlay');
             if (navLinks) navLinks.classList.remove('active');
             if (navOverlay) navOverlay.classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        if (mobileToggleBtn) {
-            mobileToggleBtn.addEventListener('click', openMobileMenu);
-        }
-        if (mobileCloseBtn) {
-            mobileCloseBtn.addEventListener('click', closeMobileMenu);
-        }
-        if (navOverlay) {
-            navOverlay.addEventListener('click', closeMobileMenu);
-        }
+        document.addEventListener('click', function(e) {
+            const toggleBtn = e.target.closest('#mobileMenuBtn, .mobile-toggle');
+            const closeBtn = e.target.closest('#mobileCloseBtn, .mobile-close-btn');
+            const overlay = e.target.closest('#navOverlay');
+            const navLink = e.target.closest('.nav-links a');
 
-        if (navLinks) {
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-        }
+            if (toggleBtn) {
+                e.preventDefault();
+                openMobileMenu();
+            } else if (closeBtn || overlay || navLink) {
+                closeMobileMenu();
+            }
+        });
 
         // Scroll to Top Functionality
         const scrollTopBtn = document.getElementById('scrollTopBtn');
