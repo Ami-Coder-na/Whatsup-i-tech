@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="hero-media">
-            <img src="{{ asset('images/hero-mockup.png') }}" alt="WhatsUp I-Tech Mockup">
+            <img src="{{ asset(\App\Models\SiteSetting::where('key', 'hero_banner')->value('value') ?? 'images/hero-mockup.png') }}" alt="WhatsUp I-Tech Mockup">
         </div>
     </div>
 </section>

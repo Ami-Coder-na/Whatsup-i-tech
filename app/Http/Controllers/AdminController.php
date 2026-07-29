@@ -196,6 +196,17 @@ class AdminController extends Controller
             }
         }
 
+        if ($request->hasFile('hero_banner')) {
+            try {
+                $file = $request->file('hero_banner');
+                $filename = 'hero_banner_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move($uploadDir, $filename);
+                \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banner'], ['value' => 'images/' . $filename]);
+            } catch (\Throwable $e) {
+                // Log or ignore
+            }
+        }
+
         // Text settings update
         $textKeys = ['phone', 'email', 'address', 'facebook', 'instagram', 'youtube', 'linkedin', 'whatsapp_number', 'messenger_link', 'privacy_policy', 'terms_conditions', 'faq_content', 'support_content'];
         foreach ($textKeys as $key) {

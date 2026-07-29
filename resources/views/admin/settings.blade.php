@@ -27,6 +27,31 @@
                 @endif
             </div>
 
+            <!-- Hero Banner Upload Section with Size Guidelines -->
+            <div class="form-group" style="background: #f0f9ff; border: 1px solid #bae6fd; padding: 18px; border-radius: 12px; margin-bottom: 24px;">
+                <label class="form-label" style="color: #0369a1; font-weight: 800; font-size: 15px;">
+                    <i class="fa-solid fa-desktop"></i> হিরো সেকশন ব্যানার আপলোড (Hero Banner Image)
+                </label>
+                <input type="file" name="hero_banner" class="form-input" accept="image/*">
+                
+                <div style="background: #ffffff; border-radius: 8px; padding: 14px; margin-top: 12px; border: 1px dashed #0284c7; font-size: 13px; color: #0c4a6e; line-height: 1.6;">
+                    <strong style="color: #0284c7;"><i class="fa-solid fa-circle-info"></i> ছবি আপলোডের সঠিক সাইজ নির্দেশিকা:</strong>
+                    <ul style="margin-top: 6px; padding-left: 18px; margin-bottom: 0;">
+                        <li><strong>সুপারিশকৃত সাইজ (Recommended Size):</strong> <code>1200 x 800 Pixels</code> (অনুপাত 3:2 বা 16:9)</li>
+                        <li><strong>ফরম্যাট (Allowed Formats):</strong> <code>PNG, JPG, WEBP</code> (স্বচ্ছ ব্যাকগ্রাউন্ডের জন্য PNG সেরা)</li>
+                        <li><strong>সর্বোচ্চ সাইজ (Max File Size):</strong> <code>2 MB</code></li>
+                    </ul>
+                </div>
+
+                @php
+                    $currentBanner = \App\Models\SiteSetting::where('key', 'hero_banner')->value('value') ?? 'images/hero-mockup.png';
+                @endphp
+                <div style="font-size: 12px; color: #64748b; margin-top: 10px;">
+                    বর্তমান ব্যানার: <br>
+                    <img src="{{ asset($currentBanner) }}" style="max-height: 100px; max-width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 6px; object-fit: contain; background: #0f172a; padding: 4px;">
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="form-label"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> হোয়াটসঅ্যাপ নম্বর (WhatsApp Number / Link)</label>
                 <input type="text" name="whatsapp_number" class="form-input" value="{{ $settings['whatsapp_number'] ?? '8801657043577' }}" placeholder="8801657043577">
