@@ -23,8 +23,8 @@
             <a href="tel:01657043577" class="phone-link">
                 <i class="fa-solid fa-phone"></i> 01657-043577
             </a>
-            <a href="{{ route('home') }}#contact" class="btn-primary">
-                ফ্রি কনসালটেশন নিন <i class="fa-solid fa-arrow-right"></i>
+            <a href="{{ route('home') }}#projects" class="btn-primary">
+                ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </div>

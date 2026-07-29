@@ -20,8 +20,21 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">ফেভিকন আপলোড (Favicon.ico)</label>
+                <label class="form-label">ফেভিকন আপলোড (Favicon.ico / Favicon.png)</label>
                 <input type="file" name="favicon" class="form-input" accept="image/*">
+                @if(file_exists(public_path('images/favicon.ico')) || file_exists(public_path('favicon.ico')))
+                <div style="font-size: 12px; color: #64748b; margin-top: 4px;">বর্তমান ফেভিকন: <img src="{{ asset('images/favicon.ico') }}?v={{ time() }}" style="height: 24px; width: 24px; object-fit: contain; background: #0f172a; padding: 2px; border-radius: 4px;"></div>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> হোয়াটসঅ্যাপ নম্বর (WhatsApp Number / Link)</label>
+                <input type="text" name="whatsapp_number" class="form-input" value="{{ $settings['whatsapp_number'] ?? '8801657043577' }}" placeholder="8801657043577">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fa-brands fa-facebook-messenger" style="color: #0084FF;"></i> মেসেঞ্জার লিংক (Messenger URL)</label>
+                <input type="text" name="messenger_link" class="form-input" value="{{ $settings['messenger_link'] ?? 'https://m.me/whatsupitech' }}" placeholder="https://m.me/whatsupitech">
             </div>
 
             <div class="form-group">
@@ -42,6 +55,11 @@
             <div class="form-group">
                 <label class="form-label">ফেসবুক পেজ লিংক (Facebook URL)</label>
                 <input type="url" name="facebook" class="form-input" value="{{ $settings['facebook'] ?? 'https://facebook.com' }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ইনস্টাগ্রাম লিংক (Instagram URL)</label>
+                <input type="url" name="instagram" class="form-input" value="{{ $settings['instagram'] ?? 'https://instagram.com' }}">
             </div>
 
             <div class="form-group">

@@ -178,13 +178,18 @@ class AdminController extends Controller
                 $request->file('logo')->move($uploadDir, 'logo.png');
                 \App\Models\SiteSetting::updateOrCreate(['key' => 'logo'], ['value' => '/images/logo.png']);
             } catch (\Throwable $e) {
-                // Log or ignore upload write error in read-only environment
+                // Log or ignore
             }
         }
 
         if ($request->hasFile('favicon')) {
             try {
-                $request->file('favicon')->move($uploadDir, 'favicon.ico');
+                $favFile = $request->file('favicon');
+                $favFile->move($uploadDir, 'favicon.ico');
+                if (file_exists($uploadDir . '/favicon.ico')) {
+                    @copy($uploadDir . '/favicon.ico', public_path('favicon.ico'));
+                    @copy($uploadDir . '/favicon.ico', $uploadDir . '/favicon.png');
+                }
                 \App\Models\SiteSetting::updateOrCreate(['key' => 'favicon'], ['value' => '/images/favicon.ico']);
             } catch (\Throwable $e) {
                 // Log or ignore
@@ -192,7 +197,7 @@ class AdminController extends Controller
         }
 
         // Text settings update
-        $textKeys = ['phone', 'email', 'address', 'facebook', 'youtube', 'linkedin', 'privacy_policy', 'terms_conditions', 'faq_content', 'support_content'];
+        $textKeys = ['phone', 'email', 'address', 'facebook', 'instagram', 'youtube', 'linkedin', 'whatsapp_number', 'messenger_link', 'privacy_policy', 'terms_conditions', 'faq_content', 'support_content'];
         foreach ($textKeys as $key) {
             if ($request->has($key)) {
                 \App\Models\SiteSetting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);

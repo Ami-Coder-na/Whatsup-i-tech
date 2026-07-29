@@ -45,8 +45,8 @@
             <a href="tel:01657043577" class="phone-link">
                 <i class="fa-solid fa-phone"></i> 01657-043577
             </a>
-            <a href="#contact" class="btn-primary">
-                ফ্রি কনসালটেশন নিন <i class="fa-solid fa-arrow-right"></i>
+            <a href="#projects" class="btn-primary">
+                ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </div>
@@ -161,7 +161,7 @@
                 <h4>আপনার আইডিয়া আছে?</h4>
                 <p>আমরা আছি আপনার আইডিয়াকে বাস্তব রূপ দিতে!</p>
                 <div>
-                    <a href="#contact" class="btn-primary">ফ্রি কনসালটেশন নিন <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#projects" class="btn-primary">ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
