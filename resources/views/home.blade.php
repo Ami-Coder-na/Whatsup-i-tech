@@ -24,7 +24,7 @@
 <header class="header">
     <div class="container navbar">
         <a href="#hero" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
-            <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1);">
+            <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain;">
         </a>
 
         <ul class="nav-links">
@@ -508,7 +508,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <a href="#hero" style="display: block; margin-bottom: 20px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 55px; width: auto; object-fit: contain; filter: brightness(0) invert(1);">
+                    <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 55px; width: auto; object-fit: contain;">
                 </a>
                 <p>আমরা ডিজিটাল সার্ভিসের মাধ্যমে ব্যবসাকে সফল আধুনিক প্রযুক্তিতে বিশ্বস্ততার সাথে এগিয়ে নিয়ে যাই।</p>
                 <div style="display: flex; gap: 12px; margin-top: 15px;">

@@ -966,7 +966,81 @@
             .services-grid, .packages-grid, .testimonials-grid, .projects-grid, .blogs-grid, .process-grid, .stats-bar { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .form-row { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 30px; }
+            /* Floating Action Buttons */
+        .floating-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            z-index: 9999;
+            align-items: center;
+        }
+
+        .floating-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff !important;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: none;
+            cursor: pointer;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.12) translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .floating-btn.whatsapp {
+            background: #25D366;
+        }
+
+        .floating-btn.messenger {
+            background: linear-gradient(135deg, #00B2FF, #006AFF);
+        }
+
+        .floating-btn.scroll-top {
+            background: linear-gradient(135deg, #007bff, #00c6ff);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+        }
+
+        .floating-btn.scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .floating-tooltip {
+            position: absolute;
+            right: 65px;
+            background: rgba(15, 23, 42, 0.9);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateX(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .floating-btn:hover .floating-tooltip {
+            opacity: 1;
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -980,8 +1054,43 @@
 
     @yield('content')
 
+    <!-- Floating Action Buttons (WhatsApp, Messenger, Scroll to Top) -->
+    <div class="floating-container">
+        <a href="https://wa.me/8801657043577" target="_blank" class="floating-btn whatsapp" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="floating-tooltip">হোয়াটসঅ্যাপে চ্যাট করুন</span>
+        </a>
+        <a href="https://m.me/whatsupitech" target="_blank" class="floating-btn messenger" aria-label="Messenger">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            <span class="floating-tooltip">মেসেঞ্জারে চ্যাট করুন</span>
+        </a>
+        <button id="scrollTopBtn" class="floating-btn scroll-top" aria-label="Scroll to top" onclick="scrollToTop()">
+            <i class="fa-solid fa-arrow-up"></i>
+            <span class="floating-tooltip">উপরে যান</span>
+        </button>
+    </div>
+
     <!-- Success Modal / Toast Notification Script -->
     <script>
+        // Scroll to Top Functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('contactForm');
             if (form) {

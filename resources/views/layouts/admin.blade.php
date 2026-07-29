@@ -44,7 +44,7 @@
 <body>
     <div class="sidebar">
         <div class="sidebar-brand" style="padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 48px; width: auto; object-fit: contain; filter: brightness(0) invert(1);">
+            <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 48px; width: auto; object-fit: contain;">
         </div>
         <ul class="nav-menu">
             <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fa-solid fa-chart-pie"></i> ড্যাশবোর্ড</a></li>
