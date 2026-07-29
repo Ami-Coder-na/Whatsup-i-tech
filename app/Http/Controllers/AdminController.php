@@ -243,8 +243,19 @@ class AdminController extends Controller
     {
         $existing = json_decode(\App\Models\SiteSetting::where('key', 'hero_banners')->value('value') ?? '[]', true) ?: [];
         if (isset($existing[$index])) {
+            $imgPath = $existing[$index];
             unset($existing[$index]);
+            
+            // 1. Database update first
             \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banners'], ['value' => json_encode(array_values($existing))]);
+            
+            // 2. After database update succeeds, auto-remove old image file from storage
+            if (!empty($imgPath) && !str_contains($imgPath, 'hero-mockup')) {
+                $fullPath = public_path(ltrim($imgPath, '/'));
+                if (file_exists($fullPath)) {
+                    @unlink($fullPath);
+                }
+            }
         }
         return back()->with('success', 'হিরো ব্যানার ইমেজটি মুছে ফেলা হয়েছে!');
     }
@@ -290,7 +301,20 @@ class AdminController extends Controller
 
     public function deleteBlog($id)
     {
-        \App\Models\Blog::findOrFail($id)->delete();
+        $blog = \App\Models\Blog::findOrFail($id);
+        $imgPath = $blog->image;
+
+        // 1. Database delete first
+        $blog->delete();
+
+        // 2. After database update succeeds, auto-remove old image file from storage
+        if (!empty($imgPath) && !str_contains($imgPath, 'blog1') && !str_contains($imgPath, 'blog2') && !str_contains($imgPath, 'blog3') && !str_contains($imgPath, 'blog4')) {
+            $fullPath = public_path(ltrim($imgPath, '/'));
+            if (file_exists($fullPath)) {
+                @unlink($fullPath);
+            }
+        }
+
         return back()->with('success', 'ব্লগ পোস্ট মুছে ফেলা হয়েছে!');
     }
 }
