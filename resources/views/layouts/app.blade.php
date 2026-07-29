@@ -1012,6 +1012,10 @@
 
         /* Responsiveness */
         @media (max-width: 992px) {
+            .top-bar {
+                display: none !important;
+            }
+
             .mobile-toggle {
                 display: flex;
             }
