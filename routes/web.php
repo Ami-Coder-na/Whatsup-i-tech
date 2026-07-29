@@ -41,6 +41,11 @@ Route::prefix('admin')->group(function () {
     Route::post('/demos/store', [AdminController::class, 'storeDemoLink'])->name('admin.demos.store');
     Route::match(['get', 'delete'], '/demos/delete/{id}', [AdminController::class, 'deleteDemoLink'])->name('admin.demos.delete');
 
+    // Blogs
+    Route::get('/blogs', [AdminController::class, 'blogs'])->name('admin.blogs');
+    Route::post('/blogs/store', [AdminController::class, 'storeBlog'])->name('admin.blogs.store');
+    Route::match(['get', 'delete'], '/blogs/delete/{id}', [AdminController::class, 'deleteBlog'])->name('admin.blogs.delete');
+
     // Messages
     Route::get('/messages', [AdminController::class, 'messages'])->name('admin.messages');
 

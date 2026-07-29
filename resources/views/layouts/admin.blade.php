@@ -51,6 +51,7 @@
             <li><a href="{{ route('admin.services') }}" class="{{ request()->routeIs('admin.services') ? 'active' : '' }}"><i class="fa-solid fa-laptop-code"></i> সার্ভিসেস</a></li>
             <li><a href="{{ route('admin.packages') }}" class="{{ request()->routeIs('admin.packages') ? 'active' : '' }}"><i class="fa-solid fa-tags"></i> প্যাকেজ ও মূল্য</a></li>
             <li><a href="{{ route('admin.demos') }}" class="{{ request()->routeIs('admin.demos') ? 'active' : '' }}"><i class="fa-solid fa-globe"></i> ডেমো লিঙ্কস</a></li>
+            <li><a href="{{ route('admin.blogs') }}" class="{{ request()->routeIs('admin.blogs*') ? 'active' : '' }}"><i class="fa-solid fa-newspaper"></i> ব্লগস ম্যানেজমেন্ট</a></li>
             <li><a href="{{ route('admin.messages') }}" class="{{ request()->routeIs('admin.messages') ? 'active' : '' }}"><i class="fa-solid fa-envelope"></i> কন্টাক্ট ইনবক্স</a></li>
             <li><a href="{{ route('admin.settings') }}" class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}"><i class="fa-solid fa-sliders"></i> সাইট সেটিংস</a></li>
             <li style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">

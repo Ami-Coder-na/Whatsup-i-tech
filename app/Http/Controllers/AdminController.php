@@ -206,4 +206,49 @@ class AdminController extends Controller
 
         return back()->with('success', 'ওয়েবসাইট সেটিং ও পলিসি তথ্য সফলভাবে আপডেট করা হয়েছে!');
     }
+
+    // Blogs Management
+    public function blogs()
+    {
+        $blogs = \App\Models\Blog::latest()->get();
+        return view('admin.blogs', compact('blogs'));
+    }
+
+    public function storeBlog(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'excerpt' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+        ]);
+
+        $imagePath = 'images/blog1.png';
+        if ($request->hasFile('image')) {
+            try {
+                $uploadDir = is_writable(public_path('images')) ? public_path('images') : '/tmp/images';
+                $filename = 'blog_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move($uploadDir, $filename);
+                $imagePath = 'images/' . $filename;
+            } catch (\Throwable $e) {
+                // Fallback default image
+            }
+        }
+
+        \App\Models\Blog::create([
+            'title' => $request->title,
+            'category' => $request->category,
+            'excerpt' => $request->excerpt,
+            'image' => $imagePath,
+            'views' => '১.৫k'
+        ]);
+
+        return back()->with('success', 'নতুন ব্লগ পোস্ট সফলভাবে প্রকাশ করা হয়েছে!');
+    }
+
+    public function deleteBlog($id)
+    {
+        \App\Models\Blog::findOrFail($id)->delete();
+        return back()->with('success', 'ব্লগ পোস্ট মুছে ফেলা হয়েছে!');
+    }
 }
