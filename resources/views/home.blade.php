@@ -34,6 +34,7 @@
             </a>
 
             <ul class="nav-links">
+                <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close Menu"><i class="fa-solid fa-xmark"></i></button>
                 <li><a href="#" class="active">হোম</a></li>
                 <li><a href="#about">আমাদের সম্পর্কে</a></li>
                 <li><a href="#services">সার্ভিস সমূহ</a></li>
@@ -50,6 +51,9 @@
                 <a href="#projects" class="btn-primary">
                     ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
                 </a>
+                <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
             </div>
         </div>
     </header>

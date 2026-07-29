@@ -10,6 +10,7 @@
         </a>
 
         <ul class="nav-links">
+            <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close Menu"><i class="fa-solid fa-xmark"></i></button>
             <li><a href="{{ route('home') }}">হোম</a></li>
             <li><a href="{{ route('home') }}#about">আমাদের সম্পর্কে</a></li>
             <li><a href="{{ route('home') }}#services">সার্ভিস সমূহ</a></li>
@@ -26,6 +27,9 @@
             <a href="{{ route('home') }}#projects" class="btn-primary">
                 ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
             </a>
+            <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
         </div>
     </div>
 </header>

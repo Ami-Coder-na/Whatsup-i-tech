@@ -957,21 +957,134 @@
             font-size: 13px;
         }
 
+        /* Mobile Toggle & Menu Drawer */
+        .mobile-toggle {
+            display: none;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .mobile-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-close-btn:hover {
+            color: #ffffff;
+        }
+
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Responsiveness */
         @media (max-width: 992px) {
-            .hero-grid, .why-us-grid, .contact-grid { grid-template-columns: 1fr; }
-            .services-grid, .packages-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
-            .projects-grid, .blogs-grid { grid-template-columns: 1fr 1fr; }
-            .process-grid { grid-template-columns: repeat(3, 1fr); }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .phone-link {
+                display: none;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 290px;
+                height: 100vh;
+                background: #050b1e;
+                flex-direction: column;
+                padding: 80px 25px 30px;
+                gap: 22px;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+                transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 9999;
+                overflow-y: auto;
+                border-left: 1px solid rgba(255,255,255,0.08);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 17px;
+                font-weight: 600;
+                display: block;
+                padding: 8px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .top-bar-content {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .top-bar-right {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .hero-grid, .why-us-grid, .contact-grid { grid-template-columns: 1fr; gap: 35px; }
+            .services-grid, .packages-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .projects-grid, .blogs-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .process-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
         }
 
         @media (max-width: 600px) {
             .services-grid, .packages-grid, .testimonials-grid, .projects-grid, .blogs-grid, .process-grid, .stats-bar { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 30px; }
+            .hero-content h1 { font-size: 28px; line-height: 1.3; }
+            .hero-content p { font-size: 15px; }
+            .btn-primary { width: 100%; text-align: center; justify-content: center; }
+            .nav-right-actions .btn-primary { padding: 10px 16px; font-size: 13px; width: auto; }
+            .brand-logo img { height: 42px !important; }
+            .floating-btn { width: 46px; height: 46px; font-size: 20px; }
+            .floating-container { bottom: 18px; right: 18px; gap: 10px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
         }
 
         /* Floating Action Buttons */
@@ -1062,6 +1175,9 @@
 
     @yield('content')
 
+    <!-- Navigation Overlay for Mobile Drawer -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
     <!-- Floating Action Buttons (WhatsApp, Messenger, Scroll to Top) -->
     <div class="floating-container">
         <a href="https://wa.me/8801657043577" target="_blank" class="floating-btn whatsapp" aria-label="WhatsApp">
@@ -1078,8 +1194,42 @@
         </button>
     </div>
 
-    <!-- Success Modal / Toast Notification Script -->
+    <!-- Success Modal / Toast Notification & Mobile Drawer Script -->
     <script>
+        // Mobile Navigation Menu Drawer Logic
+        const mobileToggleBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        const navOverlay = document.getElementById('navOverlay');
+        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+        function openMobileMenu() {
+            if (navLinks) navLinks.classList.add('active');
+            if (navOverlay) navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            if (navLinks) navLinks.classList.remove('active');
+            if (navOverlay) navOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileToggleBtn) {
+            mobileToggleBtn.addEventListener('click', openMobileMenu);
+        }
+        if (mobileCloseBtn) {
+            mobileCloseBtn.addEventListener('click', closeMobileMenu);
+        }
+        if (navOverlay) {
+            navOverlay.addEventListener('click', closeMobileMenu);
+        }
+
+        if (navLinks) {
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+        }
+
         // Scroll to Top Functionality
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         if (scrollTopBtn) {

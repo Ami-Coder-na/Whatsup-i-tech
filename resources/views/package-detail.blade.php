@@ -10,10 +10,11 @@
         </a>
 
         <ul class="nav-links">
+            <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close Menu"><i class="fa-solid fa-xmark"></i></button>
             <li><a href="{{ route('home') }}">হোম</a></li>
             <li><a href="{{ route('home') }}#about">আমাদের সম্পর্কে</a></li>
             <li><a href="{{ route('home') }}#services">সার্ভিস সমূহ</a></li>
-            <li><a href="{{ route('home') }}#packages" class="active">প্যাকেজ ও মূল্য</a></li>
+            <li><a href="{{ route('home') }}#packages">প্যাকেজ ও মূল্য</a></li>
             <li><a href="{{ route('home') }}#projects">ডেমো</a></li>
             <li><a href="{{ route('home') }}#blogs">ব্লগ</a></li>
             <li><a href="{{ route('home') }}#contact">যোগাযোগ</a></li>
@@ -26,6 +27,9 @@
             <a href="{{ route('home') }}#projects" class="btn-primary">
                 ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
             </a>
+            <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
         </div>
     </div>
 </header>
