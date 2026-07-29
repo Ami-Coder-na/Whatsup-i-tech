@@ -183,7 +183,7 @@
             <h2 class="section-title">ক্যাটাগরি অনুযায়ী ডেমো দেখুন</h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;">
+        <div class="demo-categories-grid">
             @foreach($demoCategories as $cat)
             <div class="demo-cat-card" onclick="openDemoModal('{{ $cat['id'] }}')" style="background: white; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
                 <div style="height: 160px; background: #0f172a; position: relative; overflow: hidden;">
@@ -416,7 +416,7 @@
             <h2 class="section-title">গ্যালারি</h2>
         </div>
         
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+        <div class="gallery-grid">
             <div class="gallery-item" onclick="openLightbox('/images/gal1.png', 'আমাদের আধুনিক অফিস পরিবেশ')" style="position: relative; border-radius: 16px; overflow: hidden; height: 240px; cursor: pointer; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
                 <img src="{{ asset('images/gal1.png') }}" alt="Gallery 1" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
                 <div class="gallery-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,11,30,0.85) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; color: white; opacity: 0; transition: opacity 0.3s ease;">
