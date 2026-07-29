@@ -1302,11 +1302,16 @@
 
     <!-- Floating Action Buttons (WhatsApp, Messenger, Scroll to Top) -->
     <div class="floating-container">
-        <a href="https://wa.me/8801657043577" target="_blank" class="floating-btn whatsapp" aria-label="WhatsApp">
+        @php
+            $waNum = $siteSettings['whatsapp_number'] ?? '8801657043577';
+            $waLink = (strpos($waNum, 'http') === 0) ? $waNum : 'https://wa.me/' . preg_replace('/[^0-9]/', '', $waNum);
+            $msgLink = $siteSettings['messenger_link'] ?? 'https://m.me/whatsupitech';
+        @endphp
+        <a href="{{ $waLink }}" target="_blank" class="floating-btn whatsapp" aria-label="WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
             <span class="floating-tooltip">হোয়াটসঅ্যাপে চ্যাট করুন</span>
         </a>
-        <a href="https://m.me/whatsupitech" target="_blank" class="floating-btn messenger" aria-label="Messenger">
+        <a href="{{ $msgLink }}" target="_blank" class="floating-btn messenger" aria-label="Messenger">
             <i class="fa-brands fa-facebook-messenger"></i>
             <span class="floating-tooltip">মেসেঞ্জারে চ্যাট করুন</span>
         </a>

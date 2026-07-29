@@ -4,6 +4,14 @@
 
 <!-- Sticky Fixed Header Container -->
 <div class="sticky-header-wrapper">
+    @php
+        $waNum = $siteSettings['whatsapp_number'] ?? '8801657043577';
+        $waLink = (strpos($waNum, 'http') === 0) ? $waNum : 'https://wa.me/' . preg_replace('/[^0-9]/', '', $waNum);
+        $msgLink = $siteSettings['messenger_link'] ?? 'https://m.me/whatsupitech';
+        $phone = $siteSettings['phone'] ?? '01657-043577';
+        $phoneClean = preg_replace('/[^0-9\+]/', '', $phone);
+        $logo = $siteSettings['logo'] ?? 'images/logo.png';
+    @endphp
     <!-- Top Announcement Bar -->
     <div class="top-bar">
         <div class="container top-bar-content">
@@ -11,17 +19,18 @@
                 <span>বাংলাদেশ সেরা ডিজিটাল সার্ভিসেস প্ল্যাটফর্ম</span>
             </div>
             <div class="top-bar-right">
-                <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366; font-weight: 600;"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp</a>
-                <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF; font-weight: 600;"><i class="fa-brands fa-facebook-messenger fa-lg"></i> Messenger</a>
+                <a href="{{ $waLink }}" target="_blank" style="color: #25D366; font-weight: 600;"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp</a>
+                <a href="{{ $msgLink }}" target="_blank" style="color: #0084FF; font-weight: 600;"><i class="fa-brands fa-facebook-messenger fa-lg"></i> Messenger</a>
                 <a href="{{ route('support') }}"><i class="fa-solid fa-headset"></i> সাপোর্ট</a>
                 <a href="{{ route('faq') }}"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="{{ route('privacy.policy') }}"><i class="fa-solid fa-user-shield"></i> গোপনীয়তা নীতি</a>
                 <a href="{{ route('terms.conditions') }}"><i class="fa-solid fa-file-contract"></i> শর্তাবলী</a>
-                <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF;"><i class="fa-brands fa-facebook-messenger"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="{{ $waLink }}" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="{{ $msgLink }}" target="_blank" style="color: #0084FF;"><i class="fa-brands fa-facebook-messenger"></i></a>
+                @if(!empty($siteSettings['facebook']))<a href="{{ $siteSettings['facebook'] }}" target="_blank"><i class="fa-brands fa-facebook"></i></a>@endif
+                @if(!empty($siteSettings['youtube']))<a href="{{ $siteSettings['youtube'] }}" target="_blank"><i class="fa-brands fa-youtube"></i></a>@endif
+                @if(!empty($siteSettings['linkedin']))<a href="{{ $siteSettings['linkedin'] }}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>@endif
+                @if(!empty($siteSettings['instagram']))<a href="{{ $siteSettings['instagram'] }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>@endif
             </div>
         </div>
     </div>
@@ -30,7 +39,7 @@
     <header class="header">
         <div class="container navbar">
             <a href="#hero" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
-                <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain;">
+                <img src="{{ asset($logo) }}" alt="WhatsUp i-Tech Logo" style="height: 52px; width: auto; object-fit: contain;">
             </a>
 
             <ul class="nav-links">
@@ -48,8 +57,8 @@
             </ul>
 
             <div class="nav-right-actions">
-                <a href="tel:01657043577" class="phone-link">
-                    <i class="fa-solid fa-phone"></i> 01657-043577
+                <a href="tel:{{ $phoneClean }}" class="phone-link">
+                    <i class="fa-solid fa-phone"></i> {{ $phone }}
                 </a>
                 <a href="#projects" class="btn-primary">
                     ডেমো দেখুন <i class="fa-solid fa-arrow-right"></i>
@@ -519,7 +528,7 @@
                     <p style="color: #94a3b8; font-size: 15px; margin-bottom: 28px;">আমরা আপনার আইটি প্রয়োজন সম্পূর্ণ সমাধান দিতে প্রস্তুত!</p>
                     <div style="display: flex; gap: 20px; align-items: center;">
                         <a href="#contact" class="btn-primary" style="padding: 12px 24px;">যোগাযোগ করুন <i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="tel:01657043577" style="color: white; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-phone" style="color: var(--accent-orange);"></i> 01657-043577</a>
+                        <a href="tel:{{ $phoneClean }}" style="color: white; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-phone" style="color: var(--accent-orange);"></i> {{ $phone }}</a>
                     </div>
                 </div>
                 <div>
@@ -545,16 +554,16 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <a href="#hero" style="display: block; margin-bottom: 20px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="WhatsUp i-Tech Logo" style="height: 55px; width: auto; object-fit: contain;">
+                    <img src="{{ asset($logo) }}" alt="WhatsUp i-Tech Logo" style="height: 55px; width: auto; object-fit: contain;">
                 </a>
                 <p>আমরা ডিজিটাল সার্ভিসের মাধ্যমে ব্যবসাকে সফল আধুনিক প্রযুক্তিতে বিশ্বস্ততার সাথে এগিয়ে নিয়ে যাই।</p>
                 <div style="display: flex; gap: 12px; margin-top: 15px;">
-                    <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366;" title="WhatsApp"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
-                    <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF;" title="Messenger"><i class="fa-brands fa-facebook-messenger fa-lg"></i></a>
-                    <a href="#" style="color: white;"><i class="fa-brands fa-facebook fa-lg"></i></a>
-                    <a href="#" style="color: white;"><i class="fa-brands fa-youtube fa-lg"></i></a>
-                    <a href="#" style="color: white;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
-                    <a href="#" style="color: white;"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                    <a href="{{ $waLink }}" target="_blank" style="color: #25D366;" title="WhatsApp"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
+                    <a href="{{ $msgLink }}" target="_blank" style="color: #0084FF;" title="Messenger"><i class="fa-brands fa-facebook-messenger fa-lg"></i></a>
+                    @if(!empty($siteSettings['facebook']))<a href="{{ $siteSettings['facebook'] }}" target="_blank" style="color: white;"><i class="fa-brands fa-facebook fa-lg"></i></a>@endif
+                    @if(!empty($siteSettings['youtube']))<a href="{{ $siteSettings['youtube'] }}" target="_blank" style="color: white;"><i class="fa-brands fa-youtube fa-lg"></i></a>@endif
+                    @if(!empty($siteSettings['linkedin']))<a href="{{ $siteSettings['linkedin'] }}" target="_blank" style="color: white;"><i class="fa-brands fa-linkedin fa-lg"></i></a>@endif
+                    @if(!empty($siteSettings['instagram']))<a href="{{ $siteSettings['instagram'] }}" target="_blank" style="color: white;"><i class="fa-brands fa-instagram fa-lg"></i></a>@endif
                 </div>
             </div>
             <div class="footer-col">
@@ -564,33 +573,33 @@
                     <li><a href="#about">আমাদের সম্পর্কে</a></li>
                     <li><a href="#services">সার্ভিস সমূহ</a></li>
                     <li><a href="#projects">ডেমো</a></li>
-                    <li><a href="#blogs">প্রয়োজনীয়</a></li>
+                    <li><a href="#blogs">ব্লগ</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>আমাদের সার্ভিস</h5>
                 <ul class="footer-links">
-                    <li><a href="#">ওয়েবসাইট ডেভেলপমেন্ট</a></li>
-                    <li><a href="#">ই-কমার্স সলিউশন</a></li>
-                    <li><a href="#">মোবাইল অ্যাপ</a></li>
-                    <li><a href="#">কাস্টম সফটওয়্যার</a></li>
-                    <li><a href="#">ডিজিটাল মার্কেটিং</a></li>
+                    <li><a href="#services">ওয়েবসাইট ডেভেলপমেন্ট</a></li>
+                    <li><a href="#services">ই-কমার্স সলিউশন</a></li>
+                    <li><a href="#services">মোবাইল অ্যাপ</a></li>
+                    <li><a href="#services">কাস্টম সফটওয়্যার</a></li>
+                    <li><a href="#services">ডিজিটাল মার্কেটিং</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>সহায়তা</h5>
                 <ul class="footer-links">
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">সাপোর্ট</a></li>
-                    <li><a href="#">গোপনীয়তা নীতি</a></li>
-                    <li><a href="#">শর্তাবলী</a></li>
+                    <li><a href="{{ route('faq') }}">FAQ</a></li>
+                    <li><a href="{{ route('support') }}">সাপোর্ট</a></li>
+                    <li><a href="{{ route('privacy.policy') }}">গোপনীয়তা নীতি</a></li>
+                    <li><a href="{{ route('terms.conditions') }}">শর্তাবলী</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h5>যোগাযোগ করুন</h5>
-                <p><i class="fa-solid fa-location-dot"></i> হাউজ - ২৬/বি, রোড - ০২, সেক্টর - ৩, উত্তরা, ঢাকা-১২৩০</p>
-                <p style="margin-top: 8px;"><i class="fa-solid fa-phone"></i> 01657-043577</p>
-                <p style="margin-top: 8px;"><i class="fa-solid fa-envelope"></i> contact@whatsupitech.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> {{ $siteSettings['address'] ?? 'হাউজ - ২৬/বি, রোড - ০২, সেক্টর - ৩, উত্তরা, ঢাকা-১২৩০' }}</p>
+                <p style="margin-top: 8px;"><i class="fa-solid fa-phone"></i> {{ $phone }}</p>
+                <p style="margin-top: 8px;"><i class="fa-solid fa-envelope"></i> {{ $siteSettings['email'] ?? 'contact@whatsupitech.com' }}</p>
                 <p style="margin-top: 8px;"><i class="fa-solid fa-globe"></i> www.whatsupitech.com</p>
             </div>
         </div>
