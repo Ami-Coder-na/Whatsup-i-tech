@@ -1018,12 +1018,25 @@
             transition: all 0.3s ease;
         }
 
-        .nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
+        /* Demo Categories & Gallery Desktop Grid Defaults */
+        .demo-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
         }
 
         /* Responsiveness */
+        @media (max-width: 1200px) {
+            .demo-categories-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        }
+
         @media (max-width: 992px) {
             .top-bar {
                 display: none !important;
@@ -1116,7 +1129,8 @@
             .hero-grid, .why-us-grid, .contact-grid { grid-template-columns: 1fr; gap: 35px; }
             .services-grid, .packages-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
             .projects-grid, .blogs-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-            .demo-categories-grid, .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .demo-categories-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .process-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
@@ -1124,8 +1138,8 @@
 
         @media (max-width: 600px) {
             .services-grid, .packages-grid, .testimonials-grid, .projects-grid, .blogs-grid, .process-grid, .stats-bar { grid-template-columns: 1fr; gap: 25px; }
-            .demo-categories-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
-            .gallery-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+            .demo-categories-grid { grid-template-columns: 1fr; gap: 30px; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 28px; }
             .footer-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
             .hero-content h1 { font-size: 28px; line-height: 1.3; }
@@ -1134,7 +1148,6 @@
             .nav-right-actions .btn-primary { padding: 10px 16px; font-size: 13px; width: auto; }
             .brand-logo img { height: 42px !important; }
             .floating-btn { width: 46px; height: 46px; font-size: 20px; }
-            .floating-container { bottom: 18px; right: 18px; gap: 10px; }
             .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
         }
 
