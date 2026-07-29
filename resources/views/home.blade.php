@@ -9,10 +9,14 @@
             <span>বাংলাদেশ সেরা ডিজিটাল সার্ভিসেস প্ল্যাটফর্ম</span>
         </div>
         <div class="top-bar-right">
+            <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366; font-weight: 600;"><i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp</a>
+            <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF; font-weight: 600;"><i class="fa-brands fa-facebook-messenger fa-lg"></i> Messenger</a>
             <a href="{{ route('support') }}"><i class="fa-solid fa-headset"></i> সাপোর্ট</a>
             <a href="{{ route('faq') }}"><i class="fa-solid fa-circle-question"></i> FAQ</a>
             <a href="{{ route('privacy.policy') }}"><i class="fa-solid fa-user-shield"></i> গোপনীয়তা নীতি</a>
             <a href="{{ route('terms.conditions') }}"><i class="fa-solid fa-file-contract"></i> শর্তাবলী</a>
+            <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF;"><i class="fa-brands fa-facebook-messenger"></i></a>
             <a href="#"><i class="fa-brands fa-facebook"></i></a>
             <a href="#"><i class="fa-brands fa-youtube"></i></a>
             <a href="#"><i class="fa-brands fa-linkedin"></i></a>
@@ -512,6 +516,8 @@
                 </a>
                 <p>আমরা ডিজিটাল সার্ভিসের মাধ্যমে ব্যবসাকে সফল আধুনিক প্রযুক্তিতে বিশ্বস্ততার সাথে এগিয়ে নিয়ে যাই।</p>
                 <div style="display: flex; gap: 12px; margin-top: 15px;">
+                    <a href="https://wa.me/8801657043577" target="_blank" style="color: #25D366;" title="WhatsApp"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
+                    <a href="https://m.me/whatsupitech" target="_blank" style="color: #0084FF;" title="Messenger"><i class="fa-brands fa-facebook-messenger fa-lg"></i></a>
                     <a href="#" style="color: white;"><i class="fa-brands fa-facebook fa-lg"></i></a>
                     <a href="#" style="color: white;"><i class="fa-brands fa-youtube fa-lg"></i></a>
                     <a href="#" style="color: white;"><i class="fa-brands fa-linkedin fa-lg"></i></a>
