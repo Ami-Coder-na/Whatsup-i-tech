@@ -966,7 +966,10 @@
             .services-grid, .packages-grid, .testimonials-grid, .projects-grid, .blogs-grid, .process-grid, .stats-bar { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .form-row { grid-template-columns: 1fr; }
-            /* Floating Action Buttons */
+            .hero-content h1 { font-size: 30px; }
+        }
+
+        /* Floating Action Buttons */
         .floating-container {
             position: fixed;
             bottom: 25px;
