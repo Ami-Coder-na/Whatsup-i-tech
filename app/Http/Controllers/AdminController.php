@@ -201,7 +201,28 @@ class AdminController extends Controller
                 $file = $request->file('hero_banner');
                 $filename = 'hero_banner_' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move($uploadDir, $filename);
+                
+                $existing = json_decode(\App\Models\SiteSetting::where('key', 'hero_banners')->value('value') ?? '[]', true) ?: [];
+                $existing[] = 'images/' . $filename;
+                
                 \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banner'], ['value' => 'images/' . $filename]);
+                \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banners'], ['value' => json_encode(array_values($existing))]);
+            } catch (\Throwable $e) {
+                // Log or ignore
+            }
+        }
+
+        if ($request->hasFile('hero_banners')) {
+            try {
+                $existing = json_decode(\App\Models\SiteSetting::where('key', 'hero_banners')->value('value') ?? '[]', true) ?: [];
+                
+                foreach ($request->file('hero_banners') as $idx => $file) {
+                    $filename = 'hero_banner_' . time() . '_' . rand(100, 999) . '_' . $idx . '.' . $file->getClientOriginalExtension();
+                    $file->move($uploadDir, $filename);
+                    $existing[] = 'images/' . $filename;
+                }
+
+                \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banners'], ['value' => json_encode(array_values($existing))]);
             } catch (\Throwable $e) {
                 // Log or ignore
             }
@@ -216,6 +237,16 @@ class AdminController extends Controller
         }
 
         return back()->with('success', 'ওয়েবসাইট সেটিং ও পলিসি তথ্য সফলভাবে আপডেট করা হয়েছে!');
+    }
+
+    public function deleteHeroBanner($index)
+    {
+        $existing = json_decode(\App\Models\SiteSetting::where('key', 'hero_banners')->value('value') ?? '[]', true) ?: [];
+        if (isset($existing[$index])) {
+            unset($existing[$index]);
+            \App\Models\SiteSetting::updateOrCreate(['key' => 'hero_banners'], ['value' => json_encode(array_values($existing))]);
+        }
+        return back()->with('success', 'হিরো ব্যানার ইমেজটি মুছে ফেলা হয়েছে!');
     }
 
     // Blogs Management

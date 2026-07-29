@@ -52,6 +52,7 @@ Route::prefix('admin')->group(function () {
     // Site Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::post('/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
+    Route::match(['get', 'delete'], '/settings/hero-banner/delete/{index}', [AdminController::class, 'deleteHeroBanner'])->name('admin.hero.banner.delete');
 
     // Logout
     Route::post('/logout', function() {

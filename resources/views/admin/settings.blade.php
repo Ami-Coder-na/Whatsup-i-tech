@@ -27,28 +27,45 @@
                 @endif
             </div>
 
-            <!-- Hero Banner Upload Section with Size Guidelines -->
+            <!-- Hero Banners Multiple Upload Section with Size Guidelines -->
             <div class="form-group" style="background: #f0f9ff; border: 1px solid #bae6fd; padding: 18px; border-radius: 12px; margin-bottom: 24px;">
                 <label class="form-label" style="color: #0369a1; font-weight: 800; font-size: 15px;">
-                    <i class="fa-solid fa-desktop"></i> হিরো সেকশন ব্যানার আপলোড (Hero Banner Image)
+                    <i class="fa-solid fa-images"></i> হিরো সেকশন স্লাইডার ব্যানার আপলোড (Multiple Banner Images)
                 </label>
-                <input type="file" name="hero_banner" class="form-input" accept="image/*">
+                <input type="file" name="hero_banners[]" class="form-input" accept="image/*" multiple>
                 
                 <div style="background: #ffffff; border-radius: 8px; padding: 14px; margin-top: 12px; border: 1px dashed #0284c7; font-size: 13px; color: #0c4a6e; line-height: 1.6;">
                     <strong style="color: #0284c7;"><i class="fa-solid fa-circle-info"></i> ছবি আপলোডের সঠিক সাইজ নির্দেশিকা:</strong>
                     <ul style="margin-top: 6px; padding-left: 18px; margin-bottom: 0;">
                         <li><strong>সুপারিশকৃত সাইজ (Recommended Size):</strong> <code>1200 x 800 Pixels</code> (অনুপাত 3:2 বা 16:9)</li>
+                        <li><strong>মাল্টিপল ফাইল সিলেক্ট:</strong> একসাথে একাধিক ব্যানার ইমেজ সিলেক্ট করে আপলোড করতে পারবেন।</li>
                         <li><strong>ফরম্যাট (Allowed Formats):</strong> <code>PNG, JPG, WEBP</code> (স্বচ্ছ ব্যাকগ্রাউন্ডের জন্য PNG সেরা)</li>
-                        <li><strong>সর্বোচ্চ সাইজ (Max File Size):</strong> <code>2 MB</code></li>
+                        <li><strong>অটো-স্লাইড এনিমেশন:</strong> আপলোড করা সব ব্যানার হোমপেজে স্লাইডারে স্বয়ংক্রিয়ভাবে স্লাইড হতে থাকবে।</li>
                     </ul>
                 </div>
 
                 @php
-                    $currentBanner = \App\Models\SiteSetting::where('key', 'hero_banner')->value('value') ?? 'images/hero-mockup.png';
+                    $bannersJson = \App\Models\SiteSetting::where('key', 'hero_banners')->value('value');
+                    $banners = $bannersJson ? json_decode($bannersJson, true) : [];
+                    if (empty($banners)) {
+                        $singleBanner = \App\Models\SiteSetting::where('key', 'hero_banner')->value('value');
+                        $banners = [$singleBanner ?? 'images/hero-mockup.png'];
+                    }
                 @endphp
-                <div style="font-size: 12px; color: #64748b; margin-top: 10px;">
-                    বর্তমান ব্যানার: <br>
-                    <img src="{{ asset($currentBanner) }}" style="max-height: 100px; max-width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; margin-top: 6px; object-fit: contain; background: #0f172a; padding: 4px;">
+                <div style="margin-top: 15px;">
+                    <div style="font-size: 13px; font-weight: 700; color: #0369a1; margin-bottom: 8px;">
+                        বর্তমান স্লাইডার ব্যানারসমূহ ({{ count($banners) }}টি):
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        @foreach($banners as $index => $b)
+                        <div style="position: relative; background: #0f172a; padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                            <img src="{{ asset($b) }}" style="width: 100%; height: 80px; object-fit: contain; border-radius: 4px;">
+                            <a href="{{ route('admin.hero.banner.delete', $index) }}" onclick="return confirm('এই ব্যানারটি ডিলিট করতে চান?')" style="position: absolute; top: 4px; right: 4px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; text-decoration: none;" title="Delete Banner">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 

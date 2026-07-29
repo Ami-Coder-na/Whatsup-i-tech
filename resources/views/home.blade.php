@@ -81,8 +81,31 @@
                 <div class="trust-text">১৫০+ ব্যবসার প্রতিষ্ঠান আমাদের ওপর বিশ্বস্ত</div>
             </div>
         </div>
+        @php
+            $heroBannersJson = \App\Models\SiteSetting::where('key', 'hero_banners')->value('value');
+            $heroBanners = $heroBannersJson ? json_decode($heroBannersJson, true) : [];
+            if (empty($heroBanners)) {
+                $singleB = \App\Models\SiteSetting::where('key', 'hero_banner')->value('value');
+                $heroBanners = [$singleB ?? 'images/hero-mockup.png'];
+            }
+        @endphp
+
         <div class="hero-media">
-            <img src="{{ asset(\App\Models\SiteSetting::where('key', 'hero_banner')->value('value') ?? 'images/hero-mockup.png') }}" alt="WhatsUp I-Tech Mockup">
+            <div class="hero-slider-container">
+                @foreach($heroBanners as $idx => $b)
+                <div class="hero-slide {{ $idx === 0 ? 'active' : '' }}" data-slide="{{ $idx }}">
+                    <img src="{{ asset($b) }}" alt="WhatsUp I-Tech Banner {{ $idx + 1 }}">
+                </div>
+                @endforeach
+
+                @if(count($heroBanners) > 1)
+                <div class="hero-slider-dots">
+                    @foreach($heroBanners as $idx => $b)
+                    <span class="hero-dot {{ $idx === 0 ? 'active' : '' }}" onclick="setHeroSlide({{ $idx }})"></span>
+                    @endforeach
+                </div>
+                @endif
+            </div>
         </div>
     </div>
 </section>
