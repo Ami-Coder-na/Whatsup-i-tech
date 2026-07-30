@@ -30,7 +30,7 @@
                 <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1;">পাসওয়ার্ড</label>
                 <div style="position: relative;">
                     <i class="fa-solid fa-lock" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #64748b;"></i>
-                    <input type="password" name="password" value="admin" required placeholder="••••••••" style="width: 100%; padding: 12px 14px 12px 42px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; color: white; font-size: 15px; outline: none; transition: 0.3s;">
+                    <input type="password" name="password" required placeholder="••••••••" style="width: 100%; padding: 12px 14px 12px 42px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; color: white; font-size: 15px; outline: none; transition: 0.3s;">
                 </div>
             </div>
 
@@ -38,10 +38,6 @@
                 <i class="fa-solid fa-right-to-bracket"></i> লগইন করুন
             </button>
         </form>
-
-        <div style="text-align: center; margin-top: 25px; font-size: 13px; color: #64748b;">
-            ডিফল্ট ইউজারনেম: <strong style="color: #00a8ff;">admin</strong> | পাসওয়ার্ড: <strong style="color: #00a8ff;">admin</strong>
-        </div>
     </div>
 </div>
 @endsection

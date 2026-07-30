@@ -148,4 +148,38 @@
 
     </div>
 </form>
+
+<!-- Admin Credentials Change Section -->
+@php
+    $currentAdminUsername = \App\Models\SiteSetting::where('key', 'admin_username')->value('value') ?? 'admin';
+@endphp
+<div class="card" style="margin-top: 30px; border-left: 5px solid #6366f1;">
+    <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 20px; color: #6366f1;">
+        <i class="fa-solid fa-user-shield"></i> অ্যাডমিন লগইন তথ্য পরিবর্তন (Admin Credentials)
+    </h3>
+    
+    <form action="{{ route('admin.credentials.update') }}" method="POST">
+        @csrf
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="form-group">
+                <label class="form-label">ইউজারনেম (Admin Username)</label>
+                <input type="text" name="username" class="form-input" value="{{ $currentAdminUsername }}" required placeholder="admin">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">বর্তমান পাসওয়ার্ড (Current Password)</label>
+                <input type="password" name="current_password" class="form-input" required placeholder="বর্তমান পাসওয়ার্ড দিন">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">নতুন পাসওয়ার্ড (New Password - পরিবর্তন না চাইলে খালি রাখুন)</label>
+                <input type="password" name="new_password" class="form-input" placeholder="নতুন পাসওয়ার্ড (ঐচ্ছিক)">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, #6366f1, #4f46e5); padding: 12px 24px; font-size: 15px;">
+            <i class="fa-solid fa-key"></i> ইউজারনেম ও পাসওয়ার্ড আপডেট করুন
+        </button>
+    </form>
+</div>
 @endsection

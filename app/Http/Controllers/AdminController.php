@@ -37,7 +37,10 @@ class AdminController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        if ($username === 'admin' && $password === 'admin') {
+        $savedUsername = \App\Models\SiteSetting::where('key', 'admin_username')->value('value') ?? 'admin';
+        $savedPassword = \App\Models\SiteSetting::where('key', 'admin_password')->value('value') ?? 'admin';
+
+        if ($username === $savedUsername && $password === $savedPassword) {
             session(['admin_logged_in' => true]);
             return redirect()->route('admin.dashboard')->with('success', 'স্বাগতম! সফলভাবে লগইন করা হয়েছে।');
         }
@@ -269,6 +272,30 @@ class AdminController extends Controller
             }
         }
         return back()->with('success', 'হিরো ব্যানার ইমেজটি মুছে ফেলা হয়েছে!');
+    }
+
+    public function updateCredentials(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'current_password' => 'required|string',
+            'new_password' => 'nullable|string|min:4',
+        ]);
+
+        $savedUsername = \App\Models\SiteSetting::where('key', 'admin_username')->value('value') ?? 'admin';
+        $savedPassword = \App\Models\SiteSetting::where('key', 'admin_password')->value('value') ?? 'admin';
+
+        if ($request->input('current_password') !== $savedPassword) {
+            return back()->with('error', 'বর্তমান পাসওয়ার্ডটি সঠিক নয়!');
+        }
+
+        \App\Models\SiteSetting::updateOrCreate(['key' => 'admin_username'], ['value' => trim($request->input('username'))]);
+
+        if ($request->filled('new_password')) {
+            \App\Models\SiteSetting::updateOrCreate(['key' => 'admin_password'], ['value' => trim($request->input('new_password'))]);
+        }
+
+        return back()->with('success', 'অ্যাডমিন ইউজারনেম ও পাসওয়ার্ড সফলভাবে আপডেট করা হয়েছে!');
     }
 
     // Blogs Management
