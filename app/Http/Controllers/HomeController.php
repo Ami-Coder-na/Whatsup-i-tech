@@ -54,7 +54,8 @@ class HomeController extends Controller
     public function blogDetail($id)
     {
         $blog = Blog::findOrFail($id);
-        $blog->increment('views');
+        $blog->views = ((int) $blog->views) + 1;
+        $blog->save();
         $recentBlogs = Blog::where('id', '!=', $id)->latest()->take(5)->get();
         return view('blog-detail', compact('blog', 'recentBlogs'));
     }
