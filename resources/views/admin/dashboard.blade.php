@@ -3,7 +3,7 @@
 @section('title', 'অ্যাডমিন ড্যাশবোর্ড')
 
 @section('admin_content')
-<div class="stats-grid">
+<div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
     <div class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-laptop-code"></i></div>
         <div>
@@ -33,6 +33,22 @@
         <div>
             <div class="stat-num">{{ $stats['messages'] }}</div>
             <div class="stat-label">কন্টাক্ট মেসেজ</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #fdf4ff; color: #a855f7;"><i class="fa-solid fa-images"></i></div>
+        <div>
+            <div class="stat-num">{{ $stats['galleries'] }}</div>
+            <div class="stat-label">গ্যালারি ইমেজ</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #fffbeb; color: #f59e0b;"><i class="fa-solid fa-star"></i></div>
+        <div>
+            <div class="stat-num">{{ $stats['testimonials'] }}</div>
+            <div class="stat-label">ক্লায়েন্ট রিভিউ</div>
         </div>
     </div>
 </div>

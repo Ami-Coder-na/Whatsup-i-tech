@@ -55,7 +55,9 @@ class AdminController extends Controller
             'packages' => Package::count(),
             'demos' => DemoLink::count(),
             'blogs' => Blog::count(),
-            'messages' => ContactMessage::count()
+            'messages' => ContactMessage::count(),
+            'galleries' => Gallery::count(),
+            'testimonials' => Testimonial::count()
         ];
         $recentMessages = ContactMessage::latest()->take(5)->get();
 
@@ -354,5 +356,129 @@ class AdminController extends Controller
         }
 
         return back()->with('success', 'ব্লগ পোস্ট মুছে ফেলা হয়েছে!');
+    }
+
+    // ==========================================
+    // Gallery Management
+    // ==========================================
+    public function gallery()
+    {
+        $galleries = Gallery::orderBy('sort_order', 'asc')->get();
+        return view('admin.gallery', compact('galleries'));
+    }
+
+    public function storeGallery(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120'
+        ]);
+
+        $imagePath = '';
+        if ($request->hasFile('image')) {
+            try {
+                $uploadDir = is_writable(public_path('images')) ? public_path('images') : '/tmp/images';
+                if (!file_exists($uploadDir)) {
+                    @mkdir($uploadDir, 0777, true);
+                }
+                $filename = 'gallery_' . time() . '_' . rand(100, 999) . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move($uploadDir, $filename);
+                $imagePath = 'images/' . $filename;
+            } catch (\Throwable $e) {
+                return back()->with('error', 'ইমেজ আপলোড করতে সমস্যা হয়েছে!');
+            }
+        }
+
+        Gallery::create([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'image' => $imagePath,
+            'sort_order' => Gallery::count() + 1
+        ]);
+
+        return back()->with('success', 'গ্যালারিতে নতুন ইমেজ সফলভাবে যোগ করা হয়েছে!');
+    }
+
+    public function deleteGallery($id)
+    {
+        $gallery = Gallery::findOrFail($id);
+        $imgPath = $gallery->image;
+
+        // 1. Database delete first
+        $gallery->delete();
+
+        // 2. Auto-remove image file from storage
+        if (!empty($imgPath)) {
+            $fullPath = public_path(ltrim($imgPath, '/'));
+            if (file_exists($fullPath)) {
+                @unlink($fullPath);
+            }
+        }
+
+        return back()->with('success', 'গ্যালারি ইমেজটি মুছে ফেলা হয়েছে!');
+    }
+
+    // ==========================================
+    // Testimonials / Client Reviews Management
+    // ==========================================
+    public function testimonials()
+    {
+        $testimonials = Testimonial::latest()->get();
+        return view('admin.testimonials', compact('testimonials'));
+    }
+
+    public function storeTestimonial(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'comment' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+        ]);
+
+        $avatarPath = 'images/default-avatar.png';
+        if ($request->hasFile('avatar')) {
+            try {
+                $uploadDir = is_writable(public_path('images')) ? public_path('images') : '/tmp/images';
+                if (!file_exists($uploadDir)) {
+                    @mkdir($uploadDir, 0777, true);
+                }
+                $filename = 'avatar_' . time() . '_' . rand(100, 999) . '.' . $request->file('avatar')->getClientOriginalExtension();
+                $request->file('avatar')->move($uploadDir, $filename);
+                $avatarPath = 'images/' . $filename;
+            } catch (\Throwable $e) {
+                // Fallback default avatar
+            }
+        }
+
+        Testimonial::create([
+            'name' => $request->name,
+            'designation' => $request->designation,
+            'avatar' => $avatarPath,
+            'rating' => $request->rating,
+            'comment' => $request->comment
+        ]);
+
+        return back()->with('success', 'ক্লায়েন্ট রিভিউ সফলভাবে যোগ করা হয়েছে!');
+    }
+
+    public function deleteTestimonial($id)
+    {
+        $testimonial = Testimonial::findOrFail($id);
+        $imgPath = $testimonial->avatar;
+
+        // 1. Database delete first
+        $testimonial->delete();
+
+        // 2. Auto-remove avatar file from storage
+        if (!empty($imgPath) && !str_contains($imgPath, 'default-avatar') && !str_contains($imgPath, 'client')) {
+            $fullPath = public_path(ltrim($imgPath, '/'));
+            if (file_exists($fullPath)) {
+                @unlink($fullPath);
+            }
+        }
+
+        return back()->with('success', 'ক্লায়েন্ট রিভিউটি মুছে ফেলা হয়েছে!');
     }
 }

@@ -426,16 +426,21 @@
         </div>
         <div class="blogs-grid">
             @foreach($blogs as $blog)
-            <div class="blog-card">
+            <div class="blog-card" onclick="window.location.href='{{ route('blog.detail', $blog->id) }}'" style="cursor: pointer;">
                 <div class="blog-img">
                     <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}">
                     <div class="blog-badge">
-                        {{ $blog->category }} | {{ $blog->views }}
+                        {{ $blog->category }} | <i class="fa-regular fa-eye"></i> {{ $blog->views }}
                     </div>
                 </div>
                 <div class="blog-content">
-                    <h3 class="blog-title">{{ $blog->title }}</h3>
+                    <h3 class="blog-title"><a href="{{ route('blog.detail', $blog->id) }}" style="text-decoration: none; color: inherit;">{{ $blog->title }}</a></h3>
                     <p class="blog-excerpt">{{ $blog->excerpt }}</p>
+                    <div style="margin-top: 15px;">
+                        <a href="{{ route('blog.detail', $blog->id) }}" style="color: var(--accent-orange); font-weight: 700; text-decoration: none; font-size: 14px;">
+                            বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             @endforeach

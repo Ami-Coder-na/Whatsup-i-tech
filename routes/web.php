@@ -10,6 +10,7 @@ Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('p
 Route::get('/terms-and-conditions', [HomeController::class, 'termsConditions'])->name('terms.conditions');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/support', [HomeController::class, 'support'])->name('support');
+Route::get('/blog/{id}', [HomeController::class, 'blogDetail'])->name('blog.detail');
 Route::post('/contact-submit', [HomeController::class, 'submitContact'])->name('contact.submit');
 
 // Admin Panel Routes
@@ -54,6 +55,16 @@ Route::prefix('admin')->group(function () {
     Route::post('/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
     Route::post('/settings/credentials', [AdminController::class, 'updateCredentials'])->name('admin.credentials.update');
     Route::match(['get', 'delete'], '/settings/hero-banner/delete/{index}', [AdminController::class, 'deleteHeroBanner'])->name('admin.hero.banner.delete');
+
+    // Gallery Management
+    Route::get('/gallery', [AdminController::class, 'gallery'])->name('admin.gallery');
+    Route::post('/gallery/store', [AdminController::class, 'storeGallery'])->name('admin.gallery.store');
+    Route::match(['get', 'delete'], '/gallery/delete/{id}', [AdminController::class, 'deleteGallery'])->name('admin.gallery.delete');
+
+    // Testimonials / Client Reviews
+    Route::get('/testimonials', [AdminController::class, 'testimonials'])->name('admin.testimonials');
+    Route::post('/testimonials/store', [AdminController::class, 'storeTestimonial'])->name('admin.testimonials.store');
+    Route::match(['get', 'delete'], '/testimonials/delete/{id}', [AdminController::class, 'deleteTestimonial'])->name('admin.testimonials.delete');
 
     // Logout
     Route::post('/logout', function() {

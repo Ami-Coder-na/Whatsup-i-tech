@@ -51,6 +51,14 @@ class HomeController extends Controller
         return view('package-detail', compact('package', 'allPackages'));
     }
 
+    public function blogDetail($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->increment('views');
+        $recentBlogs = Blog::where('id', '!=', $id)->latest()->take(5)->get();
+        return view('blog-detail', compact('blog', 'recentBlogs'));
+    }
+
     public function privacyPolicy()
     {
         $policyText = \App\Models\SiteSetting::where('key', 'privacy_policy')->value('value') ?? 'WhatsUp i-Tech কাস্টমারের তথ্যের গোপনীয়তা রক্ষা করতে প্রতিশ্রুতিবদ্ধ।';
