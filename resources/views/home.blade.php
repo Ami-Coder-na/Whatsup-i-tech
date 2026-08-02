@@ -405,7 +405,7 @@
                 </div>
                 <p class="testimonial-comment">"{{ $t->comment }}"</p>
                 <div class="client-info">
-                    <img src="https://i.pravatar.cc/100?img={{ $loop->index + 20 }}" class="client-avatar" alt="{{ $t->name }}">
+                    <img src="{{ !empty($t->avatar) ? (str_starts_with($t->avatar, 'http') ? $t->avatar : asset($t->avatar)) : 'https://i.pravatar.cc/100?img=' . ($loop->index + 20) }}" class="client-avatar" alt="{{ $t->name }}">
                     <div>
                         <div class="client-name">{{ $t->name }}</div>
                         <div class="client-role">{{ $t->designation }}</div>
